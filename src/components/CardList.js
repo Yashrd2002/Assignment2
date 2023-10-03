@@ -6,17 +6,17 @@ import { Link } from "react-router-dom";
 const CardList = ({ active }) => {
   const [displayCount, setDisplayCount] = useState(6);
   const [cityProperties, setCityProperties] = useState();
-  
-  useEffect(()=>{
+
+  useEffect(() => {
     setDisplayCount(6);
-  },[active])
+  }, [active]);
   useEffect(() => {
     setCityProperties(
       properties
         .filter((property) => property.City === active)
         .slice(0, displayCount)
     );
-  }, [active,displayCount]);
+  }, [active, displayCount]);
 
 
   return (
@@ -32,15 +32,17 @@ const CardList = ({ active }) => {
           </Link>
         ))}
       </div>
-      <div className="mt-3 flex justify-center">
-        <button
-          className="p-2 px-3 bg-blue-700 text-white flex gap-3 items-center rounded-2xl"
-          onClick={()=>setDisplayCount(displayCount+3)}
-        >
-          <BsHourglassTop />
-          Show More
-        </button>
-      </div>
+      {cityProperties?.length >= displayCount && (
+        <div className="mt-3 flex justify-center">
+          <button
+            className="p-2 px-3 bg-blue-700 text-white flex gap-3 items-center rounded-2xl"
+            onClick={() => setDisplayCount(displayCount + 3)}
+          >
+            <BsHourglassTop />
+            Show More
+          </button>
+        </div>
+      )}
     </div>
   );
 };
